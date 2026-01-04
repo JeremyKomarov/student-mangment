@@ -1,7 +1,6 @@
 package com.firstProject.controller;
 
 import com.firstProject.model.Course;
-import com.firstProject.model.Student;
 import com.firstProject.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +23,7 @@ public class CourseController {
         return courseService.getCourseById(courseId);
     }
 
+    @CrossOrigin
     @GetMapping("/all")
     public List<Course> getAllCourses() {
         return courseService.getAllCourses();

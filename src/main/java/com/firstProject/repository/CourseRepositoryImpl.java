@@ -1,6 +1,8 @@
 package com.firstProject.repository;
 
+import com.firstProject.model.Course;
 import com.firstProject.model.Student;
+import com.firstProject.repository.mapper.CourseMapper;
 import com.firstProject.repository.mapper.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -10,44 +12,44 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class StudentRepositoryImpl implements StudentRepository {
+public class CourseRepositoryImpl implements CourseRepository{
 
-    private static final String STUDENT_TABLE_NAME = "student";
+    private static final String COURSE_TABLE_NAME = "course";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public Long createStudent(Student student) {
-        String sql = "INSERT INTO " + STUDENT_TABLE_NAME +
-                    " (first_name, last_name, course_id) VALUES (?, ?, ?)";
+    public Long createCourse(Course course) {
+        String sql = "INSERT INTO " + COURSE_TABLE_NAME +
+                " (name, start_date) VALUES (?, ?)";
 
         jdbcTemplate.update(
                 sql,
-                student.getFirstName(),
-                student.getLastName(),
-                student.getCourseId()
+                course.getName(),
+                course.getStartDate()
         );
         return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID();", Long.class);
     }
 
     @Override
-    public Student getStudentById(Long studentId) {
-        String sql = "SELECT * FROM " + STUDENT_TABLE_NAME + " WHERE id=?";
+    public Course getCourseById(Long courseId) {
+        String sql = "SELECT * FROM " + COURSE_TABLE_NAME + " WHERE id=?";
         try {
-            return jdbcTemplate.queryForObject(sql, new StudentMapper(), studentId);
+            return jdbcTemplate.queryForObject(sql, new CourseMapper(), courseId);
         } catch (EmptyResultDataAccessException error) {
             return null;
         }
     }
 
     @Override
-    public List<Student> getAllStudents() {
-        String sql = "SELECT * FROM " + STUDENT_TABLE_NAME;
+    public List<Course> getAllCourses() {
+        String sql = "SELECT * FROM " + COURSE_TABLE_NAME;
         try {
-            return jdbcTemplate.query(sql, new StudentMapper());
+            return jdbcTemplate.query(sql, new CourseMapper());
         } catch (EmptyResultDataAccessException error) {
             return null;
         }
     }
 }
+

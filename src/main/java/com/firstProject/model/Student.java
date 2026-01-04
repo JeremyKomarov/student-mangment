@@ -4,9 +4,16 @@ public class Student {
     private Long id;
     private String firstName;
     private String lastName;
-    private String email;
+    private Long courseId;
 
     public Student() {
+    }
+
+    public Student(Long id, String firstName, String lastName, Long courseId) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.courseId = courseId;
     }
 
     public Long getId() {
@@ -21,8 +28,8 @@ public class Student {
         return this.lastName;
     }
 
-    public String getEmail() {
-        return this.email;
+    public Long getCourseId() {
+        return this.courseId;
     }
 
     public void setFirstName(String firstName) {
@@ -33,7 +40,7 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 }

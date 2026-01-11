@@ -1,10 +1,16 @@
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS course;
+DROP TABLE IF EXISTS student;
 
-CREATE TABLE users (
+CREATE TABLE course (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(100) NOT NULL DEFAULT '',
-    password VARCHAR(100) NOT NULL DEFAULT '',
-    active INT NOT NULL DEFAULT '1',
-    roles VARCHAR(50) NOT NULL DEFAULT '',
-    permissions VARCHAR(50) NOT NULL DEFAULT ''
-)
+    name VARCHAR(300) NOT NULL DEFAULT '',
+    start_date DATE NOT NULL
+);
+
+CREATE TABLE student (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(100) NOT NULL DEFAULT '',
+    last_name VARCHAR(100) NOT NULL DEFAULT '',
+    course_id INT NOT NULL,
+    CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course(id)
+);
